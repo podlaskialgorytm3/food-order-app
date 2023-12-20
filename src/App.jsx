@@ -1,6 +1,7 @@
 import { Header } from "./features/header-feature/Header";
 import { MealsContainer } from "./features/meals-feature/MealsContainer";
 import { MealItem } from "./features/meals-feature/components/MealItem";
+import { Loading } from "./features/loading-feature/Loading";
 
 import { useFetch } from "./hooks/useFetch";
 
@@ -12,9 +13,9 @@ function App() {
   return (
     <>
       <Header />
+      {isLoading && (<Loading />)}
+      {error && <p>{error.message}</p>}
       <MealsContainer>
-            {isLoading && <p>Loading...</p>}
-            {error && <p>{error.message}</p>}
             {!isLoading && (
               meals.map((meal) => 
               ( <MealItem 
@@ -25,6 +26,7 @@ function App() {
               image={meal.image}
               />)
               ))}
+            
       </MealsContainer>
     </>
   );
