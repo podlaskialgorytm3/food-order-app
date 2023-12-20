@@ -22,7 +22,7 @@ function App() {
               key={meal.id} 
               name={meal.name} 
               price={meal.price} 
-              description={meal.description}
+              description={meal.description} 
               image={meal.image}
               />)
               ))}
