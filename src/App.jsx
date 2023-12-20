@@ -3,9 +3,10 @@ import { MealsContainer } from "./features/meals-feature/MealsContainer";
 
 import { useFetch } from "./hooks/useFetch";
 
-function App() {
-  const { meals, isLoading, error } = useFetch([]);
+import { fetchData } from "./utils/fetchData";
 
+function App() {
+  const { meals, isLoading, error } = useFetch(fetchData,[]);
 
   return (
     <>
