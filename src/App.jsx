@@ -5,10 +5,10 @@ import { Loading } from "./features/loading-feature/Loading";
 
 import { useFetch } from "./hooks/useFetch";
 
-import { fetchData } from "./utils/fetchData";
+import { fetchMeals } from "./utils/fetchMeals";
 
 function App() {
-  const { meals, isLoading, error } = useFetch(fetchData,[]);
+  const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
 
   return (
     <>

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (fetchData, initialValue) => {
-    const [meals, setMeals] = useState(initialValue);
+export const useFetch = (getData, initialValue) => {
+    const [fetchedData, setFetchedData] = useState(initialValue);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchMeals = async () => {
+        const fetchData = async () => {
             setIsLoading(true);
             try {
-                const data = await fetchData();
-                setMeals(data);
+                const data = await getData();
+                setFetchedData(data);
             } catch (error) {
                 setError({
                     message: error.message || "Meals fetch failed!",
@@ -19,11 +19,11 @@ export const useFetch = (fetchData, initialValue) => {
             setIsLoading(false);
         };
 
-        fetchMeals();
+        fetchData();
     }, []);
 
     return {
-        meals,
+        fetchedData,
         isLoading,
         error,
     };
