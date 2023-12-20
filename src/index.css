@@ -78,6 +78,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .meal-item img {
@@ -97,6 +98,7 @@ h1 {
 }
 
 .meal-item-price {
+  width: 150px;
   display: inline-block;
   background-color: #312c1d;
   color: #ffc404;

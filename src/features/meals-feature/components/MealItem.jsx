@@ -6,7 +6,7 @@ export const MealItem = ({name,price,description,image}) => {
                 <img src={`http://localhost:3000/${image}`} alt={image} />
                 <h3>{name}</h3>
                 <p className="meal-item-price">
-                    {price}
+                    {price} zł
                 </p>
                 <p className="meal-item-description">
                     {description}
