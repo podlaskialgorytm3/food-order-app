@@ -22,7 +22,7 @@ function App() {
               name={meal.name} 
               price={meal.price} 
               description={meal.description}
-              imgage={meal.image}
+              image={meal.image}
               />)
               ))}
       </MealsContainer>
