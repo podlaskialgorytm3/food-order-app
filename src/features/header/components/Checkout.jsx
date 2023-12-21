@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { z, object, string } from "zod";
 
 const checkoutSchema = object({
@@ -11,37 +11,50 @@ const checkoutSchema = object({
 
 export const Checkout = ({ modalRef, total, closeModal }) => {
     const [formErrors, setFormErrors] = useState({});
+    const [formData, setFormData] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = {
-        name: e.target.elements.name.value,
-        email: e.target.elements.email.value,
-        street: e.target.elements.street.value,
-        postal: e.target.elements.postal.value,
-        city: e.target.elements.city.value,
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormData({
+            name: e.target.elements.name.value,
+            email: e.target.elements.email.value,
+            street: e.target.elements.street.value,
+            postal: e.target.elements.postal.value,
+            city: e.target.elements.city.value,
+            price: total
+        });
+        setIsSubmitting(true);
     };
 
-    try {
-        checkoutSchema.parse(formData);
-        setFormErrors({});
-        console.log("Form data is valid");
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            const errors = {};
-            error.errors.forEach((err) => {
-                const field = err.path[0];
-                const message = err.message;
-                errors[field] = message;
-            });
-            setFormErrors(errors);
-        } else {
-            console.error(error);
+    useEffect(() => {
+        const checkingValidation = async () => {
+            try {
+                checkoutSchema.parse(formData);
+                setFormErrors({});
+                console.log("Form data is valid");
+            } catch (error) {
+                if (error instanceof z.ZodError) {
+                    const errors = {};
+                    error.errors.forEach((err) => {
+                        const field = err.path[0];
+                        const message = err.message;
+                        errors[field] = message;
+                    });
+                    setFormErrors(errors);
+                } else {
+                    console.error(error);
+                }
+            }
+            console.log(formErrors);
+            setIsSubmitting(false);
+        };
+
+        if (isSubmitting) {
+            checkingValidation();
         }
-    }
-    console.log(formErrors);
-    };
+    }, [isSubmitting, formData]);
+
 
     const handleClose = () => {
         closeModal();
