@@ -2,6 +2,7 @@ import { useFetch } from "../../../hooks/useFetch"
 
 import { fetchMeals } from "../../meals/utils/fetchMeals"
 
+import { Loading } from "../../loading/Loading";
 
 export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
     const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
@@ -17,7 +18,11 @@ export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
     return(
         <dialog className="modal" ref={modalRef}>
             <h2>Your food!</h2>
-            <ul className="cart-items">
+            {isLoading && (<Loading />)}
+            {error && <p>{error.message}</p>}
+            {!isLoading && (
+                <>
+                <ul className="cart-items">
                 <li>
                     {cartOrder.map((meal) => (
                         <div key={meal.id} className="cart-item">
@@ -38,6 +43,8 @@ export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
             <div className="cart-actions">
                 <div className="cart-button" onClick={closeModal}>Close</div>
             </div>
+                </>
+            )}
         </dialog>
     )
 }
