@@ -6,7 +6,9 @@ export const CartModal = ({modalRef,closeModal}) => {
             <ul>
 
             </ul>
-            <button onClick={closeModal}>Close</button>
+            <div className="cart-actions">
+                <div className="cart-button" onClick={closeModal}>Close</div>
+            </div>
         </dialog>
     )
 }
