@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect, useRef } from "react";
 import { z, object, string } from "zod";
 
 const checkoutSchema = object({
@@ -13,6 +13,8 @@ export const Checkout = ({ modalRef, total, closeModal , handleSendOrder}) => {
     const [formErrors, setFormErrors] = useState({});
     const [formData, setFormData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const formRef = useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -68,6 +70,7 @@ export const Checkout = ({ modalRef, total, closeModal , handleSendOrder}) => {
             const data = await response.json();
             console.log(data);
             handleSendOrder(true)
+            formRef.current.reset();
             closeModal();
         }
         catch(error){
@@ -85,7 +88,7 @@ export const Checkout = ({ modalRef, total, closeModal , handleSendOrder}) => {
     <dialog className="modal" ref={modalRef}>
       <h2>Checkout</h2>
       <p>{total} zł</p>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit} ref={formRef}>
         <div className="control">
           <label htmlFor="name">Name</label>
           <input type="text" id="name" />
