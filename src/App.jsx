@@ -12,6 +12,7 @@ import { fetchMeals } from "./features/meals/utils/fetchMeals";
 function App() {
   const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
   const [ cartContent, setCartContent ] = useState([])
+  const [isSendingOrder, setIsSendingOrder] = useState(false);
 
   const handleButton = (id) => {
     setCartContent((prevState) => {
@@ -58,9 +59,17 @@ function App() {
     });
   }
 
+  const handleSendOrder = (isSending) => {
+    setIsSendingOrder(isSending);
+  }
+  if(isSendingOrder){
+    setCartContent([]);
+    setIsSendingOrder(false);
+  }
+
   return (
     <>
-      <Header cartContent={cartContent} handleQuantity={handleQuantity} />
+      <Header cartContent={cartContent} handleQuantity={handleQuantity} handleSendOrder={handleSendOrder} />
       {isLoading && (<Loading />)}
       {error && <p>{error.message}</p>}
       <MealsContainer>

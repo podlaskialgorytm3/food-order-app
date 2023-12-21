@@ -9,10 +9,12 @@ import { useFetch } from "../../hooks/useFetch"
 
 import { fetchMeals } from "../meals/utils/fetchMeals"
 
-export const Header = ({cartContent,handleQuantity}) => {
+export const Header = ({cartContent,handleQuantity,handleSendOrder}) => {
     const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
     const {showModal: showCart,closeModal: closeCart,isModalOpen: isCartOpen} = useModal();
     const {showModal: showCheckout,closeModal: closeCheckout,isModalOpen: isCheckoutOpen} = useModal();
+
+    
 
     const showCheckoutModal = () => {
         closeCart();
@@ -47,7 +49,7 @@ export const Header = ({cartContent,handleQuantity}) => {
             handleQuantity={handleQuantity}
             showCheckoutModal={showCheckoutModal}
             />
-            <Checkout modalRef={isCheckoutOpen} closeModal={closeCheckout} total={total}/>
+            <Checkout modalRef={isCheckoutOpen} closeModal={closeCheckout} total={total} handleSendOrder={handleSendOrder}/>
         </header>
     );
     }

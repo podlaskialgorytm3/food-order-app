@@ -9,7 +9,7 @@ const checkoutSchema = object({
   city: string().min(2).max(50),
 });
 
-export const Checkout = ({ modalRef, total, closeModal }) => {
+export const Checkout = ({ modalRef, total, closeModal , handleSendOrder}) => {
     const [formErrors, setFormErrors] = useState({});
     const [formData, setFormData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,6 +67,8 @@ export const Checkout = ({ modalRef, total, closeModal }) => {
             });
             const data = await response.json();
             console.log(data);
+            handleSendOrder(true)
+            closeModal();
         }
         catch(error){
             console.log(error);
