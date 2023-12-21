@@ -1,9 +1,9 @@
-export const Checkout = ({modalRef}) => {
+export const Checkout = ({modalRef,total}) => {
 
     return(
         <dialog className="modal" ref={modalRef}>
             <h2>Checkout</h2>
-            <p>Tolal checkout.</p>
+            <p>{total} zł</p>
             <form className="form">
                 <div className="control">
                     <label htmlFor="name">Name</label>

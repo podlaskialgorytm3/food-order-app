@@ -22,14 +22,18 @@ export const Header = ({cartContent,handleQuantity}) => {
     const itemQuantity = cartContent.reduce((acc, item) => acc + item.quantity, 0);
 
     const cartMeals = meals.filter(meal => cartContent.some(item => item.id === meal.id));
+    const cartOrder = cartMeals.map(meal => {
+        const cartItem = cartContent.find(item => item.id === meal.id);
+        return { ...meal, quantity: cartItem.quantity };
+    });
+
+    const total = cartOrder.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
 
     const cartOrderObject = {
-        cartOrder: cartMeals.map(meal => {
-            const cartItem = cartContent.find(item => item.id === meal.id);
-            return { ...meal, quantity: cartItem.quantity };
-        }),
+        cartOrder,
         isLoading,
-        error
+        error,
+        total
     }
 
     return (
@@ -43,7 +47,7 @@ export const Header = ({cartContent,handleQuantity}) => {
             handleQuantity={handleQuantity}
             showCheckoutModal={showCheckoutModal}
             />
-            <Checkout modalRef={isCheckoutOpen} closeModal={closeCheckout}/>
+            <Checkout modalRef={isCheckoutOpen} closeModal={closeCheckout} total={total}/>
         </header>
     );
     }
