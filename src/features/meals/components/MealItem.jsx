@@ -1,4 +1,4 @@
-export const MealItem = ({name,price,description,image}) => {
+export const MealItem = ({id,name,price,description,image,handleButton}) => {
 
     return(
         <div className="meal-item">
@@ -12,7 +12,7 @@ export const MealItem = ({name,price,description,image}) => {
                     {description}
                 </p>
                 <div className="meal-item-actions">
-                    <button className="button">Add to Cart</button>
+                    <button className="button" onClick={() => handleButton(id)}>Add to Cart</button>
                 </div>
             </article>
         </div>
