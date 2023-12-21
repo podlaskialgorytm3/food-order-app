@@ -4,15 +4,10 @@ import { Title } from '../header/components/Title'
 import { Cart } from '../header/components/Cart'
 import { CartModal } from '../header/components/CartModal'
 
-export const Header = ({cartContent}) => {
-    const isModalOpen = useRef(null);
+import { useModal } from './hooks/useModal'
 
-    const showModal = () => {
-        isModalOpen.current.showModal();
-    }
-    const closeModal = () => {
-        isModalOpen.current.close();
-    }
+export const Header = ({cartContent}) => {
+    const {showModal,closeModal,isModalOpen} = useModal();
 
     return (
         <header id="main-header">
