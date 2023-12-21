@@ -12,6 +12,8 @@ export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
         return { ...meal, quantity: cartItem.quantity };
     });
 
+    const total = cartOrder.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+
     return(
         <dialog className="modal" ref={modalRef}>
             <h2>Your food!</h2>
@@ -31,7 +33,7 @@ export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
             </ul>
             <div className="cart-total">
                 <p>Total:  </p>
-                <p>{cartOrder.reduce((acc, item) => acc + item.price * item.quantity, 0)} zł</p>
+                <p>{total} zł</p>
             </div>
             <div className="cart-actions">
                 <div className="cart-button" onClick={closeModal}>Close</div>
