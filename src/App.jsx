@@ -1,11 +1,11 @@
-import { Header } from "./features/header-feature/Header";
-import { MealsContainer } from "./features/meals-feature/MealsContainer";
-import { MealItem } from "./features/meals-feature/components/MealItem";
-import { Loading } from "./features/loading-feature/Loading";
+import { Header } from "./features/header/Header";
+import { MealsContainer } from "./features/meals/MealsContainer";
+import { MealItem } from "./features/meals/components/MealItem";
+import { Loading } from "./features/loading/Loading";
 
 import { useFetch } from "./hooks/useFetch";
 
-import { fetchMeals } from "./utils/fetchMeals";
+import { fetchMeals } from "./features/meals/utils/fetchMeals";
 
 function App() {
   const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);

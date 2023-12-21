@@ -1,5 +1,5 @@
-import { Title } from '../header-feature/components/Title'
-import { Cart } from '../header-feature/components/Cart'
+import { Title } from '../header/components/Title'
+import { Cart } from '../header/components/Cart'
 
 export const Header = () => {
     return (
