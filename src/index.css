@@ -282,7 +282,18 @@ h1 {
   background-color: #1d1a16;
   color: #ffab04;
 }
-
+.mini-button{
+  width: 30px;
+  height: 30px;
+  background-color: #ffc404;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
 
 @keyframes fade-slide-up {
   from {

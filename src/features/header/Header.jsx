@@ -4,7 +4,7 @@ import { CartModal } from '../header/components/CartModal'
 
 import { useModal } from './hooks/useModal'
 
-export const Header = ({cartContent}) => {
+export const Header = ({cartContent,handleQuantity}) => {
     const {showModal,closeModal,isModalOpen} = useModal();
 
     const itemQuantity = cartContent.reduce((acc, item) => acc + item.quantity, 0);
@@ -13,7 +13,7 @@ export const Header = ({cartContent}) => {
         <header id="main-header">
             <Title>ReactFood</Title>
             <Cart showModal={showModal}>Cart ({ itemQuantity || 0})</Cart>
-            <CartModal modalRef={isModalOpen} closeModal={closeModal} cartContent={cartContent}/>
+            <CartModal modalRef={isModalOpen} closeModal={closeModal} cartContent={cartContent} handleQuantity={handleQuantity}/>
         </header>
     );
     }
