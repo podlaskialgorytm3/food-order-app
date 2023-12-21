@@ -4,7 +4,7 @@ import { fetchMeals } from "../../meals/utils/fetchMeals"
 
 import { Loading } from "../../loading/Loading";
 
-export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
+export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity,showCheckoutModal}) => {
     const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
 
     const cartMeals = meals.filter(meal => cartContent.some(item => item.id === meal.id));
@@ -42,6 +42,7 @@ export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity}) => {
             </div>
             <div className="cart-actions">
                 <div className="cart-button" onClick={closeModal}>Close</div>
+                {cartOrder.length > 0 && (<div className="cart-button" onClick={showCheckoutModal}>Go to checkout</div>)}
             </div>
                 </>
             )}
