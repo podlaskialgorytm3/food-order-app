@@ -35,34 +35,27 @@ function App() {
     });
   }
 
-  const handleQuantity = (id,action) => {
+  const handleQuantity = (id, action) => {
     setCartContent((prevState) => {
-      const existingItem = prevState.find(item => item.id === id);
-      if (existingItem) {
-        if (action === "PLUS") {
-          return prevState.map(item => {
-            if (item.id === id) {
-              return {
-                ...item,
-                quantity: item.quantity + 1
-              };
-            }
-            return item;
-          });
-        } else if (action === "MINUS") {
-          return prevState.map(item => {
-            if (item.id === id) {
-              return {
-                ...item,
-                quantity: item.quantity - 1
-              };
-            }
-            return item;
-          });
+      const updatedState = prevState.map(item => {
+        if (item.id === id) {
+          if (action === "PLUS") {
+            return {
+              ...item,
+              quantity: item.quantity + 1
+            };
+          } else if (action === "MINUS") {
+            return {
+              ...item,
+              quantity: item.quantity - 1
+            };
+          }
         }
-      }
-      return prevState;
-    })
+        return item;
+      });
+
+      return updatedState.filter(item => item.quantity > 0);
+    });
   }
 
   return (
