@@ -248,6 +248,7 @@ h1 {
 }
 
 .modal {
+  margin-top: 300px;
   background-color: #e4ddd4;
   border-radius: 6px;
   border: none;
