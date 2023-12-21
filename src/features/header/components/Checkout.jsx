@@ -32,6 +32,7 @@ export const Checkout = ({ modalRef, total, closeModal }) => {
             try {
                 checkoutSchema.parse(formData);
                 setFormErrors({});
+                await sendOrderToServer();
                 console.log("Form data is valid");
             } catch (error) {
                 if (error instanceof z.ZodError) {
@@ -54,6 +55,23 @@ export const Checkout = ({ modalRef, total, closeModal }) => {
             checkingValidation();
         }
     }, [isSubmitting, formData]);
+
+    const sendOrderToServer = async () => {
+        try{
+            const response = await fetch("http://localhost:3000/orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ order: formData }),
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 
 
     const handleClose = () => {
