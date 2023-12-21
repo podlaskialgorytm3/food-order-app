@@ -7,15 +7,18 @@ import { CartModal } from '../header/components/CartModal'
 export const Header = ({cartContent}) => {
     const isModalOpen = useRef(null);
 
-    const handleCart = () => {
+    const showModal = () => {
         isModalOpen.current.showModal();
+    }
+    const closeModal = () => {
+        isModalOpen.current.close();
     }
 
     return (
         <header id="main-header">
             <Title>ReactFood</Title>
-            <Cart cartContent={cartContent} handleCart={handleCart}>Cart</Cart>
-            <CartModal modalRef={isModalOpen} />
+            <Cart cartContent={cartContent} showModal={showModal}>Cart</Cart>
+            <CartModal modalRef={isModalOpen} closeModal={closeModal}/>
         </header>
     );
     }
