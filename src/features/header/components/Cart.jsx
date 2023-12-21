@@ -1,8 +1,7 @@
-export const Cart = ({children,cartContent,showModal}) => {
-    const cartContentLength = cartContent.length || 0;
+export const Cart = ({children,showModal}) => {
     return(
         <button onClick={showModal}>
-            {`${children} (${cartContentLength})`}
+            {children}
         </button>
     )
 }

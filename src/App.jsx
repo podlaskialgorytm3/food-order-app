@@ -14,7 +14,25 @@ function App() {
   const [ cartContent, setCartContent ] = useState([])
 
   const handleButton = (id) => {
-    setCartContent((prevState) => [...prevState, id])
+    setCartContent((prevState) => {
+      const existingItem = prevState.find(item => item.id === id);
+      if (existingItem) {
+        return prevState.map(item => {
+          if (item.id === id) {
+            return {
+              ...item,
+              quantity: item.quantity + 1
+            };
+          }
+          return item;
+        });
+      } else {
+        return [...prevState, {
+          id,
+          quantity: 1
+        }];
+      }
+    });
   }
 
   return (
@@ -23,9 +41,9 @@ function App() {
       {isLoading && (<Loading />)}
       {error && <p>{error.message}</p>}
       <MealsContainer>
-            {!isLoading && (
-              meals.map((meal) => 
-              ( <MealItem 
+        {!isLoading && (
+          meals.map((meal) => 
+            ( <MealItem 
               key={meal.id}
               id={meal.id}
               name={meal.name} 
@@ -33,9 +51,8 @@ function App() {
               description={meal.description} 
               image={meal.image}
               handleButton={handleButton}
-              />)
-              ))}
-            
+            />)
+          ))}
       </MealsContainer>
     </>
   );
