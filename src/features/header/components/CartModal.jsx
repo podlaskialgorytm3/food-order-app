@@ -2,8 +2,10 @@ import { useFetch } from "../../../hooks/useFetch"
 
 import { fetchMeals } from "../../meals/utils/fetchMeals"
 
+
 export const CartModal = ({modalRef,closeModal,cartContent}) => {
     const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
+
     const cartMeals = meals.filter(meal => cartContent.some(item => item.id === meal.id));
     const cartOrder = cartMeals.map(meal => {
         const cartItem = cartContent.find(item => item.id === meal.id);
@@ -23,6 +25,10 @@ export const CartModal = ({modalRef,closeModal,cartContent}) => {
                     ))}
                 </li>
             </ul>
+            <div className="cart-total">
+                <p>Total:  </p>
+                <p>{cartOrder.reduce((acc, item) => acc + item.price * item.quantity, 0)} zł</p>
+            </div>
             <div className="cart-actions">
                 <div className="cart-button" onClick={closeModal}>Close</div>
             </div>
