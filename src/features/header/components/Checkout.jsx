@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { z, object, string, set } from "zod";
+import { z, object, string } from "zod";
 
 const checkoutSchema = object({
   name: string().min(2).max(50),
   email: string().email(),
   street: string().min(2).max(100),
-  postal: string().min(5).max(10),
+  postal: string().length(6),
   city: string().min(2).max(50),
 });
 
 export const Checkout = ({ modalRef, total, closeModal }) => {
-const [formErrors, setFormErrors] = useState({});
+    const [formErrors, setFormErrors] = useState({});
 
-const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = {
@@ -25,6 +25,7 @@ const handleSubmit = (e) => {
 
     try {
         checkoutSchema.parse(formData);
+        setFormErrors({});
         console.log("Form data is valid");
     } catch (error) {
         if (error instanceof z.ZodError) {
@@ -40,9 +41,14 @@ const handleSubmit = (e) => {
         }
     }
     console.log(formErrors);
-};
+    };
 
-  return (
+    const handleClose = () => {
+        closeModal();
+        setFormErrors({});
+    }
+
+    return (
     <dialog className="modal" ref={modalRef}>
       <h2>Checkout</h2>
       <p>{total} zł</p>
@@ -73,7 +79,7 @@ const handleSubmit = (e) => {
           {formErrors.city && <p className="error-message">{formErrors.city}</p>}
         </div>
         <div className="cart-actions">
-          <div className="cart-button" onClick={closeModal}>
+          <div className="cart-button" onClick={handleClose}>
             Cancel
           </div>
           <button type="submit" className="cart-button">
