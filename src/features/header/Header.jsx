@@ -5,15 +5,31 @@ import { Checkout } from './components/Checkout'
 
 import { useModal } from './hooks/useModal'
 
+import { useFetch } from "../../hooks/useFetch"
+
+import { fetchMeals } from "../meals/utils/fetchMeals"
+
 export const Header = ({cartContent,handleQuantity}) => {
+    const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
     const {showModal: showCart,closeModal: closeCart,isModalOpen: isCartOpen} = useModal();
     const {showModal: showCheckout,closeModal: closeCheckout,isModalOpen: isCheckoutOpen} = useModal();
-
-    const itemQuantity = cartContent.reduce((acc, item) => acc + item.quantity, 0);
 
     const showCheckoutModal = () => {
         closeCart();
         showCheckout();
+    }
+
+    const itemQuantity = cartContent.reduce((acc, item) => acc + item.quantity, 0);
+
+    const cartMeals = meals.filter(meal => cartContent.some(item => item.id === meal.id));
+
+    const cartOrderObject = {
+        cartOrder: cartMeals.map(meal => {
+            const cartItem = cartContent.find(item => item.id === meal.id);
+            return { ...meal, quantity: cartItem.quantity };
+        }),
+        isLoading,
+        error
     }
 
     return (
@@ -23,7 +39,7 @@ export const Header = ({cartContent,handleQuantity}) => {
             <CartModal 
             modalRef={isCartOpen} 
             closeModal={closeCart} 
-            cartContent={cartContent} 
+            fetchMeals={cartOrderObject} 
             handleQuantity={handleQuantity}
             showCheckoutModal={showCheckoutModal}
             />

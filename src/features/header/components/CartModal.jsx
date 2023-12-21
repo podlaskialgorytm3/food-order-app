@@ -1,18 +1,8 @@
-import { useFetch } from "../../../hooks/useFetch"
-
-import { fetchMeals } from "../../meals/utils/fetchMeals"
-
 import { Loading } from "../../loading/Loading";
 
-export const CartModal = ({modalRef,closeModal,cartContent,handleQuantity,showCheckoutModal}) => {
-    const { fetchedData: meals, isLoading, error } = useFetch(fetchMeals,[]);
-
-    const cartMeals = meals.filter(meal => cartContent.some(item => item.id === meal.id));
-    const cartOrder = cartMeals.map(meal => {
-        const cartItem = cartContent.find(item => item.id === meal.id);
-        return { ...meal, quantity: cartItem.quantity };
-    });
-
+export const CartModal = ({modalRef,closeModal,fetchMeals,handleQuantity,showCheckoutModal}) => {
+    const {cartOrder,isLoading,error} = fetchMeals;
+    
     const total = cartOrder.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
 
     return(
