@@ -5,3 +5,4 @@
   <li> Node JS (express) </li>
 </ul>
 <h3>Motivation:</h3>
+<p>I want to improve my skills with React's Technologies like: create own hook, getting data from db and working with new library.</p>
